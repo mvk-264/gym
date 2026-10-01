@@ -10,25 +10,26 @@ export function Dashboard({ onSelectDay }: DashboardProps) {
   const [completedSets] = useLocalStorage<Record<string, Record<string, boolean>>>('gym-tracker-sets', {});
 
   return (
-    <div className="p-4 space-y-4">
-      <h2 className="text-xl font-bold mb-4 text-gray-100">Your Routine</h2>
+    <div className="p-4 md:p-6 lg:max-w-7xl lg:mx-auto w-full">
+      <h2 className="text-2xl font-bold mb-6 text-gray-100">Your Routine</h2>
       
-      {workoutSchedule.map((day) => {
-        const totalSets = day.exercises.reduce((acc, ex) => acc + ex.sets, 0);
-        let doneSets = 0;
-        
-        if (completedSets[day.id]) {
-          const dayData = completedSets[day.id];
-          day.exercises.forEach(ex => {
-            for (let i = 0; i < ex.sets; i++) {
-              if (dayData[`${ex.id}-${i}`]) doneSets++;
-            }
-          });
-        }
-        
-        const progress = totalSets === 0 ? 0 : Math.round((doneSets / totalSets) * 100);
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4 md:gap-6">
+        {workoutSchedule.map((day) => {
+          const totalSets = day.exercises.reduce((acc, ex) => acc + ex.sets, 0);
+          let doneSets = 0;
+          
+          if (completedSets[day.id]) {
+            const dayData = completedSets[day.id];
+            day.exercises.forEach(ex => {
+              for (let i = 0; i < ex.sets; i++) {
+                if (dayData[`${ex.id}-${i}`]) doneSets++;
+              }
+            });
+          }
+          
+          const progress = totalSets === 0 ? 0 : Math.round((doneSets / totalSets) * 100);
 
-        return (
+          return (
           <div 
             key={day.id}
             onClick={() => onSelectDay(day.id)}
@@ -59,6 +60,7 @@ export function Dashboard({ onSelectDay }: DashboardProps) {
           </div>
         );
       })}
+      </div>
     </div>
   );
 }

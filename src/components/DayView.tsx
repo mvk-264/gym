@@ -75,9 +75,10 @@ export function DayView({ day, onBack }: DayViewProps) {
         </div>
       </div>
 
-      <div className="flex-1 overflow-y-auto p-4 space-y-6">
-        {day.exercises.map((ex, index) => (
-          <div key={ex.id} className="bg-gray-900 rounded-xl shadow-md border border-gray-800 p-4">
+      <div className="flex-1 overflow-y-auto p-4 md:p-6 lg:p-8">
+        <div className="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
+          {day.exercises.map((ex, index) => (
+            <div key={ex.id} className="bg-gray-900 rounded-xl shadow-md border border-gray-800 p-4 h-fit">
             <div className="mb-4">
               <h3 className="font-bold text-gray-200 text-lg">{index + 1}. {ex.name}</h3>
               <p className="text-sm text-indigo-400 font-medium">Target: {ex.sets} sets × {ex.reps}</p>
@@ -127,6 +128,7 @@ export function DayView({ day, onBack }: DayViewProps) {
             </div>
           </div>
         ))}
+        </div>
       </div>
 
       {/* Floating Rest Timer */}
